@@ -8,7 +8,7 @@ import webbrowser
 home = tk.Tk()
 home.geometry("750x350")
 home.title("Rename Bulk Files")
-home.iconbitmap('RBF_icon.ico')
+home.iconbitmap('RBF_icon.ico') # Delete/Replace If You Do Not Download Icon File
 
 ### Define Grid Layout
 ## Colum Configure
