@@ -8,7 +8,14 @@ import webbrowser
 home = tk.Tk()
 home.geometry("750x350")
 home.title("Rename Bulk Files")
-home.iconbitmap('RBF_icon.ico')
+
+# RBF Icon
+icon_path = "RBF_icon.ico"
+
+try:
+    home.iconbitmap(icon_path)
+except tk.TclError:
+    print(f"Icon file '{icon_path}' not found.")
 
 ### Define Grid Layout
 ## Colum Configure
