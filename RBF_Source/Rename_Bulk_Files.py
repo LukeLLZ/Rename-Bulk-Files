@@ -8,30 +8,17 @@ import webbrowser
 home = tk.Tk()
 home.geometry("750x350")
 home.title("Rename Bulk Files")
-
-# RBF Icon
-icon_path = "RBF_icon.ico"
-
-try:
-    home.iconbitmap(icon_path)
-except tk.TclError:
-    print(f"Icon file '{icon_path}' not found.")
+font = 'Arial'
+not_ready_color = "red3"
+ready_color = "dodger blue"
 
 ### Define Grid Layout
-## Colum Configure
-home.columnconfigure(0, weight = 1)
-home.columnconfigure(1, weight = 1)
-home.columnconfigure(2, weight = 1)
+## Column Configure
+for column in range(3):
+    home.columnconfigure(column, weight = 1)
 ## Row Configure
-home.rowconfigure(0, weight = 1)
-home.rowconfigure(1, weight=1)
-home.rowconfigure(2, weight=1)
-home.rowconfigure(3, weight=1)
-home.rowconfigure(4, weight=1)
-home.rowconfigure(5, weight=1)
-home.rowconfigure(6, weight=1)
-home.rowconfigure(7, weight=1)
-home.rowconfigure(8, weight=1)
+for row in range(8):
+    home.rowconfigure(row, weight=1)
 
 ### File Directory
 def LocateDirectory():
@@ -42,16 +29,16 @@ def LocateDirectory():
     FD_Text.config(text = FD_Location)
     if FD_Location == "":
         FD_Confirmed = False
-        FD_Button.config(text= "Not Ready", bg= "red3")
+        FD_Button.config(text= "Not Ready", bg= not_ready_color)
         CheckRenameButtonEnabled()
     else:
         FD_Confirmed = True
-        FD_Button.config(text= "Ready", bg= "dodger blue")
+        FD_Button.config(text= "Ready", bg= ready_color)
         CheckRenameButtonEnabled()
 
-FD_Label = tk.Label(home, text= "Folder Directory", font=('Arial', 16))
+FD_Label = tk.Label(home, text= "Folder Directory", font=(font, 16))
 FD_Text = tk.Label(home, text = "Please Select A Folder", height = 1, width = 55, bg = "light gray")
-FD_Button = tk.Button(home,text= "Not Ready",fg= "white", font=('Arial', 16), height = 1, width = 10, bg = "red3", command=LocateDirectory)
+FD_Button = tk.Button(home,text= "Not Ready",fg= "white", font=(font, 16), height = 1, width = 10, bg = not_ready_color, command=LocateDirectory)
 FD_Confirmed = False
 FD_Location = ""
 
@@ -74,15 +61,15 @@ def FT_Valid():
 
 def FT_Check_Button():
     if FT_Confirmed is True:
-        FT_Button.config(text= "Ready", bg= "dodger blue")
+        FT_Button.config(text= "Ready", bg= ready_color)
         FT_Dropdown.config(state= "disabled")
         CheckRenameButtonEnabled()
     else:
-        FT_Button.config(text= "Not Ready", bg= "red3")
+        FT_Button.config(text= "Not Ready", bg= not_ready_color)
         FT_Dropdown.config(state= "normal")
         CheckRenameButtonEnabled()
 
-FT_Label = tk.Label(home, text= "File Type", font=('Arial', 16))
+FT_Label = tk.Label(home, text= "File Type", font=(font, 16))
 FT_Options = [
     '.png', '.jpeg', '.jpg', '.svg', '.ico', '.gif', '.tiff', '.bmp',
     '.wav', '.mp3', '.flac', '.aac', '.ogg',
@@ -96,7 +83,7 @@ FT_Options = [
     '.apk', '.ipa', '.jar', '.bat', '.sh', '.pl', '.py', '.rb', '.php'
 ]
 FT_Dropdown = ttk.Combobox(home, values=FT_Options, height=1, width=30)
-FT_Button = tk.Button(home,text= "Not Ready",fg= "white", font=('Arial', 16), height = 1, width = 10, bg = "red3", command=FT_Valid)
+FT_Button = tk.Button(home,text= "Not Ready",fg= "white", font=(font, 16), height = 1, width = 10, bg = not_ready_color, command=FT_Valid)
 FT_Result = ""
 FT_Confirmed = False
 
@@ -118,7 +105,7 @@ def Check_SearchWord():
     global SearchWord_Confirmed
     if SearchWord_Confirmed is True:
         SearchWord_Text.config(state='normal')
-        SearchWord_SaveButton.config(text= "Not Ready", bg="red3")
+        SearchWord_SaveButton.config(text= "Not Ready", bg= not_ready_color)
         SearchWord_Confirmed = False
         CheckRenameButtonEnabled()
     else:
@@ -128,9 +115,9 @@ def Check_SearchWord():
 def Check_SearchWord_Blank():
     global Search_Word
 
-SearchWord_Label = tk.Label(home, text="Current Word", font=('Arial', 16))
+SearchWord_Label = tk.Label(home, text="Current Word", font=(font, 16))
 SearchWord_Text = tk.Text(home, height = 2, width = 50, bg = "light grey", wrap='none')
-SearchWord_SaveButton = tk.Button(home,text= "Not Ready",fg= "white", font=('Arial', 16), height = 1, width = 10, bg = "red3",command=Check_SearchWord)
+SearchWord_SaveButton = tk.Button(home,text= "Not Ready",fg= "white", font=(font, 16), height = 1, width = 10, bg = not_ready_color,command=Check_SearchWord)
 SearchWord_Confirmed = False
 Search_Word = ""
 
@@ -140,7 +127,7 @@ def Save_NewWord():
     global New_Word
     New_Word = NewWord_Text.get("1.0", "end-1c")
     print("New Word: ", New_Word)
-    NewWord_SaveButton.config(text= "Ready", bg = "dodger blue")
+    NewWord_SaveButton.config(text= "Ready", bg = ready_color)
     NewWord_Text.config(state= 'disabled')
     NewWord_Confirmed = True
     CheckRenameButtonEnabled()
@@ -149,16 +136,16 @@ def Check_NewWord():
     global NewWord_Confirmed
     if NewWord_Confirmed is True:
         NewWord_Text.config(state='normal')
-        NewWord_SaveButton.config(text= "Not Ready", bg="red3")
+        NewWord_SaveButton.config(text= "Not Ready", bg= not_ready_color)
         NewWord_Confirmed = False
         CheckRenameButtonEnabled()
     else:
         Save_NewWord()
         CheckRenameButtonEnabled()
 
-NewWord_Label = tk.Label(home, text="New Word", font=('Arial', 16))
+NewWord_Label = tk.Label(home, text="New Word", font=(font, 16))
 NewWord_Text = tk.Text(home, height = 2, width = 50, bg = "light grey", wrap='none')
-NewWord_SaveButton = tk.Button(home,text= "Not Ready",fg= "white", font=('Arial', 16), height = 1, width = 10, bg = "red3",command=Check_NewWord)
+NewWord_SaveButton = tk.Button(home,text= "Not Ready",fg= "white", font=(font, 16), height = 1, width = 10, bg = not_ready_color,command=Check_NewWord)
 NewWord_Confirmed = False
 New_Word = ""
 
@@ -191,32 +178,32 @@ def RenameFiles():
     else:
         print("Rename Complete")
         FT_Dropdown.config(state='normal')
-        FT_Button.config(text="Not Ready", bg="red3")
+        FT_Button.config(text="Not Ready", bg= not_ready_color)
         FT_Confirmed = False
-        SearchWord_SaveButton.config(text="Not Ready", bg="red3")
+        SearchWord_SaveButton.config(text="Not Ready", bg= not_ready_color)
         SearchWord_Text.config(state='normal')
         SearchWord_Confirmed = False
-        NewWord_SaveButton.config(text="Not Ready", bg="red3")
+        NewWord_SaveButton.config(text="Not Ready", bg= not_ready_color)
         NewWord_Text.config(state='normal')
         NewWord_Confirmed = False
         CheckRenameButtonEnabled()
 
-ApplyRenameButton = tk.Button(home,text= "NOT READY",fg= "white", font= ("Arial", 16), height = 1, width = 12, bg= "red3", command=ApplyRename,state= 'disabled',disabledforeground= "white")
+ApplyRenameButton = tk.Button(home,text= "NOT READY",fg= "white", font= ("Arial", 16), height = 1, width = 12, bg= not_ready_color, command=ApplyRename,state= 'disabled',disabledforeground= "white")
 
 ### Check Rename Button Enabled
 def CheckRenameButtonEnabled():
     global ApplyRenameButton
     if FD_Confirmed is True and SearchWord_Confirmed is True and NewWord_Confirmed is True and FT_Confirmed is True:
-        ApplyRenameButton.config(text= "Apply", bg= "dodger blue", state= 'normal')
+        ApplyRenameButton.config(text= "Apply", bg= ready_color, state= 'normal')
     else:
-        ApplyRenameButton.config(text= "NOT READY",bg= "Red3",state= 'disabled')
+        ApplyRenameButton.config(text= "NOT READY",bg= not_ready_color,state= 'disabled')
 
 ### Open URL
 def OpenURL():
     webbrowser.open_new_tab(URL)
 
 URL = "www.lukelz.com"
-Credits_Label = tk.Label(home, text="www.lukelz.com", font=('Arial', 10))
+Credits_Label = tk.Label(home, text="www.lukelz.com", font=(font, 10))
 Credits_Label.bind("<Button-1>", lambda e:OpenURL())
 
 ### Place Widgets
